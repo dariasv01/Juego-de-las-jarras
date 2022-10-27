@@ -2,8 +2,8 @@ import sys
 
 from Garrafas import Garrafa
 
-garrafaUna = Garrafa(5, 3)
-garrafaDos = Garrafa(3, 3)
+garrafaUna = Garrafa(5, 0)
+garrafaDos = Garrafa(3, 0)
 historicoGarrafa = []
 
 def llenarGar(garrafaSelect, valorOld):
@@ -15,8 +15,7 @@ def checkHis(listaGarrafaActual,garrafaSelect,valorOld):
     checkValue = [listaGarrafaActual[0].getVNow(), listaGarrafaActual[1].getVNow()]
     if checkValue not in historicoGarrafa:
         juegoGarrafa(listaGarrafaActual)
-    else:
-        garrafaSelect.setVNow(valorOld)
+    garrafaSelect.setVNow(valorOld)
     return garrafaSelect
 
 def vaciar(garrafaSelect, valorOld):
@@ -25,7 +24,7 @@ def vaciar(garrafaSelect, valorOld):
     return garrafaSelect
 
 def transpasar(garrafaUno, garrafaDos, valorOldUno, valorOldDos):
-    if (garrafaUno.getVNow() != garrafaUno.getVMax() & garrafaDos.getVNow() > 0):
+    if (garrafaUno.getVNow() < garrafaUno.getVMax() and garrafaDos.getVNow() > 0):
         res = valorOldUno + valorOldDos
         if res >= garrafaUno.getVMax():
             if valorOldDos > valorOldUno:
@@ -51,6 +50,7 @@ def juegoGarrafa(listaGarrafaActual):
     if (e0 + e1) == 7:
         print(f"Solución:\n{historicoGarrafa}")
     else:
+        # print(f"{listaGarrafaActual[0].getVNow()} {listaGarrafaActual[1].getVNow()}")
         # Llenar
         listaGarrafaActual[0] = llenarGar(listaGarrafaActual[0], e0)
         listaGarrafaActual[0] = checkHis(listaGarrafaActual, listaGarrafaActual[0], e0)
